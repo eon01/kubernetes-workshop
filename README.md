@@ -1,3 +1,5 @@
+![](images/join.png)
+
 # Introduction
 
 In this workshop, we're going to use Kubernetes but in a different way from what most people use it.
@@ -453,7 +455,7 @@ CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]
 In order to optimize the Wsgi server, we need to set the number of its workers and threads to:
 
 ```
-workers = multiprocessing.cpu_count() * 2 + 1 
+workers = multiprocessing.cpu_count() * 2 + 1
 threads = 2 * multiprocessing.cpu_count()
 ```
 
@@ -495,19 +497,19 @@ Now, build `docker build -t tgr .` and run ` docker run -it --env-file .env -p 5
 
 # Pushing the Image to a Remote Registry
 
-A Docker registry is a storage and distribution system for named Docker images. 
+A Docker registry is a storage and distribution system for named Docker images.
 
 The images we built are stored in our local environment and can only be used if you deploy locally. However, if you choose to deploy a Kubernetes cluster in a cloud or any different environment, these images will be not found. This is why we need to push the build images to a remote registry.
 
 Think of container registries as a git system for Docker images.
 
-There are plenty of containers registries: 
+There are plenty of containers registries:
 
 - Dockerhub
 - Amazon Elastic Registry (ECR)
 - Azure Container Registry (ACR)
 - Google Container Registry (GCR)
-- CoreOS Quay 
+- CoreOS Quay
 
 You can also host your private container registry that supports OAuth, LDAP and Active Directory authentication using the registry provided by Docker:
 
@@ -525,7 +527,7 @@ Now, using Docker CLI, login:
 docker login
 ```
 
-Now rebuild the image using the new tag: 
+Now rebuild the image using the new tag:
 
 ``` &lt;username&gt;/&lt;image_name&gt;:&lt;tag_version&gt;
  docker build -t <username>/<image_name>:<tag_version> .
@@ -553,10 +555,10 @@ Many of the publicly (and even private Docker images) seems to be secure, but it
 COPY . .        
 ```
 
-Or 
+Or
 
 ```
-ADD . . 
+ADD . .
 ```
 
 The above commands will even copy the `.env` file containing our secrets.
@@ -602,7 +604,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 Mac users should execute:
 
 ```
-sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 
 If you see `VMX` in the output, the VT-x feature is enabled in your machine.
@@ -718,7 +720,7 @@ You can open the dashboard using `minikube -p workshop dashboard `
 
 # Deploying to Kubernetes
 
-We have three main ways to deploy our container to Kubernetes and scale it to N replica. 
+We have three main ways to deploy our container to Kubernetes and scale it to N replica.
 
 The first one is the original form of replication in Kubernetes, and it's called **Replication Controller**.
 
@@ -773,17 +775,17 @@ apiVersion: extensions/v1beta1
          - containerPort: 80
 ```
 
-Replica Set and Replication Controller do almost the same thing. 
+Replica Set and Replication Controller do almost the same thing.
 
-They ensure that you have a specified number of pod replicas running at any given time in your cluster. 
+They ensure that you have a specified number of pod replicas running at any given time in your cluster.
 
-There are however, some differences. 
+There are however, some differences.
 
 As you may notice, we are using `matchLabels` instead of `label`.
 
 Replica Set use Set-Based selectors while replication controllers use Equity-Based selectors.
 
-Selectors match Kubernetes objects (like pods) using the constraints of the specified label, and we are going to see an example in a Deployment specification file. 
+Selectors match Kubernetes objects (like pods) using the constraints of the specified label, and we are going to see an example in a Deployment specification file.
 
 **Label selectors** with **equality-based requirements** use three operators:`=`,`==` and `!=`.
 
@@ -847,7 +849,7 @@ spec:
    replicas: 3
    selector:
      matchExpressions:
-      - {key: app, operator: In, values: [app]} 
+      - {key: app, operator: In, values: [app]}
       - {key: tier, operator: NotIn, values: [frontend]}
       - {key: environment, operator: NotIn, values: [production]}
 template:
@@ -992,7 +994,7 @@ This above command will give you the API versions compatible with your cluster.
 Let's deploy the pod now using the Deployment file we created.
 
 ```
-kubcetl apply -f kubernetes/api-deployment.yaml 
+kubcetl apply -f kubernetes/api-deployment.yaml
 ```
 
 Note that you can use `kubectl create -f kubernetes/api-deployment.yaml` command. However, there's a difference, between `apply` and `create`.
@@ -1104,9 +1106,9 @@ kubectl scale --replicas=2 deployment tgr
 
 Each of these containers will be accessible on port 500 from outside the container but not from outside the cluster.
 
-The number of pods/containers running for our API can be variable and may change dynamically. 
+The number of pods/containers running for our API can be variable and may change dynamically.
 
-We can set up a load balancer that will balance traffic between the two pods we created, but since each pod can disappear to be recreated, its hostname and address will change. 
+We can set up a load balancer that will balance traffic between the two pods we created, but since each pod can disappear to be recreated, its hostname and address will change.
 
 In all cases, pods are not meant to receive traffic directly, but they need to be exposed to traffic using a Service. In other words, the set of Pods running in one moment in time could be different from the set of Pods running that application a moment later.
 
@@ -1149,7 +1151,7 @@ spec:
 
 Save this file to `kubernetes/api-service.yaml` and deploy it using `kubectl apply -f kubernetes/api-service.yaml`.
 
-If you type `kubectl get service`, you will get the list of Services running in our local cluster: 
+If you type `kubectl get service`, you will get the list of Services running in our local cluster:
 
 ```
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
@@ -1160,11 +1162,11 @@ lb           LoadBalancer   10.99.147.117   <pending>     80:30546/TCP   21s
 Not that the ClusterIP does not have an external IP while the app Service external IP is pending.
 No need to wait for the external IP of the created service, since Minikube does not really deploy a load balancer and this feature will only work if you configure a Load Balancer provider.
 
-If you are using a Cloud provider, say AWS, an AWS load balancer will be set up for you, GKE will provide a Cloud Load Balancer..etc You may also configure other types of load balancers. 
+If you are using a Cloud provider, say AWS, an AWS load balancer will be set up for you, GKE will provide a Cloud Load Balancer..etc You may also configure other types of load balancers.
 
 There are different types of Services that we can use to expose access to the API publicly:
 
-- `ClusterIP`:  is the default Kubernetes service. It exposes the Service on a cluster-internal IP. You can access it using the Kubernetes proxy. 
+- `ClusterIP`:  is the default Kubernetes service. It exposes the Service on a cluster-internal IP. You can access it using the Kubernetes proxy.
 
 ![](images/clusterip.png)
 
@@ -1222,7 +1224,7 @@ curl "http://192.168.99.100:30546/?l=python&n=1"
 
 Typically, load balancers are provisioned by the Cloud provider you're using.
 
-A load balancer can handle one service but imagine if you have ten services, each one will need a load balancer; this is when it becomes costly. 
+A load balancer can handle one service but imagine if you have ten services, each one will need a load balancer; this is when it becomes costly.
 
 The best solution, in this case, is set up an Ingress controller that acts as a smart router and can be deployed at the edge of the cluster, therefore in the front of all the services you deploy.
 
@@ -1234,7 +1236,7 @@ The best solution, in this case, is set up an Ingress controller that acts as a 
 
 # An API Gateway
 
-Ambassador is an Open Source Kubernetes-Native API Gateway built on the Envoy Proxy. It provides a solution for traffic management and application security. It's described as is a specialized control plane that translates Kubernetes annotations to Envoy configuration. 
+Ambassador is an Open Source Kubernetes-Native API Gateway built on the Envoy Proxy. It provides a solution for traffic management and application security. It's described as is a specialized control plane that translates Kubernetes annotations to Envoy configuration.
 
 All traffic is directly handled by the high-performance Envoy Proxy.
 
@@ -1242,7 +1244,7 @@ All traffic is directly handled by the high-performance Envoy Proxy.
 
 Photo credit: https://www.getambassador.io/concepts/architecture
 
-As it's described in [Envoy official website](https://www.envoyproxy.io/): 
+As it's described in [Envoy official website](https://www.envoyproxy.io/):
 
 > Originally built at **Lyft**, Envoy is a high-performance C++ distributed proxy designed for single services and applications, as well as a communication bus and “universal data plane” designed for large microservice “service mesh” architectures. Built on the learnings of solutions such as NGINX, HAProxy, hardware load balancers, and cloud load balancers, Envoy runs alongside every application and abstracts the network by providing common features in a platform-agnostic manner. When all service traffic in an infrastructure flows via an Envoy mesh, it becomes easy to visualize problem areas via consistent observability, tune overall performance, and add substrate features in a single place.
 
@@ -1408,9 +1410,9 @@ You may have heard of tools like Istio and Linkerd and it may be confusing to co
 
 Istio is described as a tool to connect, secure, control, and observe services.The same features are implemented by its alternatives like Linkerd or Consul. These tools are called Service Mesh.
 
-Ambassador is a, API gateway for services (or microservices) and it's deployed at the edge of your network. It routes incoming traffic to a cluster internal services and this what we call "north-south" traffic. 
+Ambassador is a, API gateway for services (or microservices) and it's deployed at the edge of your network. It routes incoming traffic to a cluster internal services and this what we call "north-south" traffic.
 
-Istio, in the other hand, is a service mesh for Kubernetes services (or microservices). It's designed to add application-level Layer (L7) observability, routing, and resilience to service-to-service traffic and this is what we call "east-west" traffic. 
+Istio, in the other hand, is a service mesh for Kubernetes services (or microservices). It's designed to add application-level Layer (L7) observability, routing, and resilience to service-to-service traffic and this is what we call "east-west" traffic.
 
 The fact that both Istio and Ambassador are built using Envoy, does not mean they have the same features or usability. Therefore, they can be deployed together in the same cluster.
 
@@ -1523,7 +1525,7 @@ At this stage, you should have an error output saying that you don't have the ri
   "kind": "Status",
   "apiVersion": "v1",
   "metadata": {
-    
+
   },
   "status": "Failure",
   "message": "pods \"tgr-8d78d599f-pt5xx\" is forbidden: User \"system:serviceaccount:default:default\" cannot get resource \"pods\" in API group \"\" in the namespace \"default\"",
@@ -1566,4 +1568,3 @@ roleRef:
 ```
 
 Then apply the new configuration using `kubectl apply -f kubernetes/service-account.yaml`.
-
