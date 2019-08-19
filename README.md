@@ -3,8 +3,10 @@
 Slide available [here](https://slides.com/eon01/kubernetes-workshop#/).
 # Introduction
 
-In this workshop, we're going to use Kubernetes but in a different way from what most people use it.
-Using the official Python client library for kubernetes, we are going to connect to a running cluster and monitor it.
+In this workshop, we're going to use learn how to deploy Kubernetes services and Ambassador API gateway. We are going to examine the difference between Kubernetes proxies and service mesh like Istio. We will see how to access the Kubernetes API and discover some security pitfalls when building Docker images and many interesting things.
+
+We will start by developing a simple Python application, an API that return the list of trending repositories by programming language.
+
 
 ## Development Environment
 We are going to use Python 3.6.7
@@ -1634,4 +1636,3 @@ Now you can access the list of Pods:
 
 What about creating your own monitoring/observability solution using Python (or any other programming language) and the Kubernetes API ?
 This could be probably the subject of the upcoming workshop.
-              
