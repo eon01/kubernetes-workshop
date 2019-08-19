@@ -1,4 +1,4 @@
-![](images/join.png)
+[![Join us](images/join.png)](https://faun.dev/join?utm_source=faun&utm_medium=github&utm_campaign=kubernetes-workshop)
 
 # Introduction
 
