@@ -1,5 +1,6 @@
 [![Join us](images/join.png)](https://faun.dev/join?utm_source=faun&utm_medium=github&utm_campaign=kubernetes-workshop)
 
+Slide available [here](https://slides.com/eon01/kubernetes-workshop#/).
 # Introduction
 
 In this workshop, we're going to use Kubernetes but in a different way from what most people use it.
