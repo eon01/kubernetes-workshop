@@ -15,17 +15,13 @@ g = Github(CLIENT_ID, CLIENT_SECRET)
 @app.route('/')
 def get_repos():
     r = []
-
     try:
         args = request.args
         n = int(args['n'])
         l = args['l']
     except (ValueError, LookupError) as e:
         abort(jsonify(error="Please provide 'n' and 'l' parameters"))
-
     repositories = g.search_repositories(query='language:' + l)[:n]
-
-
     try:
         for repo in repositories:
             with urllib.request.urlopen(repo.url) as url:
@@ -40,6 +36,19 @@ def get_repos():
             'repos':r,
             'status': 'ko'
             })
+
+
+# import json
+# import requests
+# @app.route('/pods')
+# def monitor():
+#
+#     api_url = "http://kubernetes.default.svc/api/v1/pods/"
+#     response = requests.get(api_url)
+#     if response.status_code == 200:
+#         return json.loads(response.content.decode('utf-8'))
+#     else:
+#         return None
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, host=HOST, port=PORT)

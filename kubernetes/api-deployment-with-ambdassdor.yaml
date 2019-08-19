@@ -10,10 +10,8 @@ metadata:
       kind: Mapping
       name: tgr_mapping
       prefix: /
-      service: tgr
-      timeout_ms: 4000
-      idle_timeout_ms: 500000
-      connect_timeout_ms: 4000
+      service: tgr:5000
+
 spec:
   ports:
   - name: tgr
@@ -26,39 +24,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tgr
-  labels:
-    name: tgr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: tgr
+      app: tgr
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
-      name: tgr
       labels:
-        name: tgr
+        app: tgr
     spec:
       containers:
-        - name: tgr
-          image: eon01/tgr:1
-          ports:
-            - containerPort: 5000
-          resources:
-            requests:
-              memory: 512Mi
-            limits:
-              memory: 512Mi
-          env:
-            - name: CLIENT_ID
-              value: "453486b9225e0e26c525"
-            - name: CLIENT_SECRET
-              value: "a63e841d5c18f41b9264a1a2ac0675a1f903ee8c"
-            - name: ENV
-              value: "prod"
-            - name: DEBUG
-              value: "False"
-            - name: HOST
-              value: "0.0.0.0"
-            - name: PORT
-              value: "5000"
+      - name: tgr
+        image: eon01/tgr:2
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5000
+        env:
+          - name: CLIENT_ID
+            value: "453486b9225e0e26c525"
+          - name: CLIENT_SECRET
+            value: "a63e841d5c18f41b9264a1a2ac0675a1f903ee8c"
+          - name: ENV
+            value: "prod"
+          - name: DEBUG
+            value: "True"
+          - name: HOST
+            value: "0.0.0.0"
+          - name: PORT
+            value: "5000"
