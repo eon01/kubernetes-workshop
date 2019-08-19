@@ -1569,3 +1569,69 @@ roleRef:
 ```
 
 Then apply the new configuration using `kubectl apply -f kubernetes/service-account.yaml`.
+
+Now you can access the list of Pods:
+
+```
+{
+  "kind": "PodList",
+  "apiVersion": "v1",
+  "metadata": {
+    "selfLink": "/api/v1/namespaces/default/pods/",
+    "resourceVersion": "19589"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "ambassador-64d8b877f9-4bzvn",
+        "generateName": "ambassador-64d8b877f9-",
+        "namespace": "default",
+        "selfLink": "/api/v1/namespaces/default/pods/ambassador-64d8b877f9-4bzvn",
+        "uid": "63f62ede-de77-441d-85f7-daf9cbc7040f",
+        "resourceVersion": "1047",
+        "creationTimestamp": "2019-08-19T08:12:47Z",
+        "labels": {
+          "pod-template-hash": "64d8b877f9",
+          "service": "ambassador"
+        },
+        "annotations": {
+          "consul.hashicorp.com/connect-inject": "false",
+          "sidecar.istio.io/inject": "false"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "ambassador-64d8b877f9",
+            "uid": "383c2e4b-7179-4806-b7bf-3682c7873a10",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "ambassador-token-rdqq6",
+            "secret": {
+              "secretName": "ambassador-token-rdqq6",
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "ambassador",
+            "image": "quay.io/datawire/ambassador:0.75.0",
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              },
+...
+```
+
+What about creating your own monitoring/observability solution using Python (or any other programming language) and the Kubernetes API ?
+This could be probably the subject of the upcoming workshop.
+              
