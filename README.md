@@ -3,12 +3,19 @@
 Slide available [here](https://slides.com/eon01/kubernetes-workshop#/).
 # Introduction
 
-In this workshop, we're going to use learn how to deploy Kubernetes services and Ambassador API gateway. We are going to examine the difference between Kubernetes proxies and service mesh like Istio. We will see how to access the Kubernetes API and discover some security pitfalls when building Docker images and many interesting things.
+In this workshop, we're going to:
 
-We will start by developing a simple Python application, an API that return the list of trending repositories by programming language.
+- Deploy Kubernetes services and an Ambassador API gateway.
+- Examine the difference between Kubernetes proxies and service mesh like Istio.
+- Access the Kubernetes API from the outside and from a Pod.
+- Discover some security pitfalls when building Docker images and many interesting things.
+- Other things :-)
+
+We will start by developing then deploying a simple Python application (a Flask API that return the list of trending repositories by programming language).
 
 
 ## Development Environment
+
 We are going to use Python 3.6.7
 
 
