@@ -440,6 +440,8 @@ Our application runs using `python app.py` which is the webserver that ships wit
 
 A production server typically receives abuse from spammers, script kiddies, and should be able to handle high traffic. In our case, a good solution is using a WSGI HTTP server like Gunicorn (or uWsgi).
 
+First, let's install `gunicorn` with the following command: `pip install gunicorn`. This will require us to update our `requirements.txt` with `pip freeze > requirements.txt`
+
 This is why we are going to change our Docker file:
 
 ```
@@ -482,7 +484,7 @@ In the same file, we are going to include other configurations of Gunicorn:
 
 ```
 from os import environ as env
-PORT = int(env.get("PORT", 5000))
+bind = env.get("HOST","0.0.0.0") +":"+ env.get("PORT", 5000)
 ```
 
 This is the final `config.py` file:
@@ -493,7 +495,7 @@ workers = multiprocessing.cpu_count() * 2 + 1
 threads = 2 * multiprocessing.cpu_count()
 
 from os import environ as env
-PORT = int(env.get("PORT", 5000))
+bind = env.get("HOST","0.0.0.0") +":"+ env.get("PORT", 5000)
 ```
 
 In consequence, we should adapt the Dockerfile to the new Gunicorn configuration by changing the last line to :
