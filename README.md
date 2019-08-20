@@ -8,11 +8,12 @@ In this workshop, we're going to:
 - Deploy Kubernetes services and an Ambassador API gateway.
 - Examine the difference between Kubernetes proxies and service mesh like Istio.
 - Access the Kubernetes API from the outside and from a Pod.
+- Understand what API to choose.
+- See how Service Accounts and RBAC works
 - Discover some security pitfalls when building Docker images and many interesting things.
 - Other things :-)
 
 We will start by developing then deploying a simple Python application (a Flask API that return the list of trending repositories by programming language).
-
 
 ## Development Environment
 
