@@ -1655,7 +1655,6 @@ This could be probably the subject of the upcoming workshop.
 
 If this workshop solved some of your problems, please consider giving it a star and/or buying me a coffee:
 
-
-<a href="https://www.buymeacoffee.com/eon01" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+[![Buy Me A Coffee](images/bmc.png)](https://www.buymeacoffee.com/eon01)
 
 *Use only for educational purposes. We don't provide any guarantee.*
