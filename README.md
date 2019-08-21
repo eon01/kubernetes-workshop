@@ -1,6 +1,9 @@
 [![Join us](images/join.png)](https://faun.dev/join?utm_source=faun&utm_medium=github&utm_campaign=kubernetes-workshop)
 
 Slide available [here](https://slides.com/eon01/kubernetes-workshop#/).
+Original article posted [here](https://medium.com/faun/a-gentle-introduction-to-kubernetes-4961e443ba26).
+Source code [here](https://github.com/eon01/kubernetes-workshop).
+
 # Introduction
 
 In this workshop, we're going to:
@@ -1646,3 +1649,12 @@ Now you can access the list of Pods:
 
 What about creating your own monitoring/observability solution using Python (or any other programming language) and the Kubernetes API ?
 This could be probably the subject of the upcoming workshop.
+
+
+---
+
+If this workshop solved some of your problems, please consider giving it a star and/or buying me a coffee:
+
+[![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/eon01)
+
+*Use only for educational purposes. We don't provide any guarantee.*
