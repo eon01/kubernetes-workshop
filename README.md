@@ -1650,6 +1650,8 @@ Now you can access the list of Pods:
 What about creating your own monitoring/observability solution using Python (or any other programming language) and the Kubernetes API ?
 This could be probably the subject of the upcoming workshop.
 
+---
+
 # Contributors
 - ![](https://avatars0.githubusercontent.com/u/5774128?s=20&v=4) [eon01](https://github.com/eon01) (creator)
 - ![](https://avatars0.githubusercontent.com/u/8949969?s=20&v=4) [MJGTwo](https://github.com/MJGTwo)
