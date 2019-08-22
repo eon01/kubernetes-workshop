@@ -1,8 +1,8 @@
 [![Join us](images/join.png)](https://faun.dev/join?utm_source=faun&utm_medium=github&utm_campaign=kubernetes-workshop)
 
-Slide available [here](https://slides.com/eon01/kubernetes-workshop#/).
-Original article posted [here](https://medium.com/faun/a-gentle-introduction-to-kubernetes-4961e443ba26).
-Source code [here](https://github.com/eon01/kubernetes-workshop).
+- Slides available [here](https://slides.com/eon01/kubernetes-workshop#/).
+- Original article posted [here](https://medium.com/faun/a-gentle-introduction-to-kubernetes-4961e443ba26).
+- Source code [here](https://github.com/eon01/kubernetes-workshop).
 
 # Introduction
 
@@ -1655,6 +1655,7 @@ This could be probably the subject of the upcoming workshop.
 # Contributors
 - ![](https://avatars0.githubusercontent.com/u/5774128?s=20&v=4) [eon01](https://github.com/eon01) (creator)
 - ![](https://avatars0.githubusercontent.com/u/8949969?s=20&v=4) [MJGTwo](https://github.com/MJGTwo)
+- ![](https://avatars2.githubusercontent.com/u/15660327?s=88&v=4) [salhernandez](https://github.com/salhernandez)
 - You ? Fork and contribute :-)
 
 ---
