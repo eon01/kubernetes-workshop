@@ -27,14 +27,14 @@ We are using Ubuntu 18.04 that comes with Python 3.6 by default. You should be a
 
 If you use Ubuntu 16.10 and 17.04, you should be able to install it with the following commands:
 
-```
+```bash
 sudo apt-get update
 sudo apt-get install python3.6
 ```
 
 If you are using Ubuntu 14.04 or 16.04, you need to get Python 3 from a Personal Package Archive (PPA):
 
-```
+```bash
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
 sudo apt-get install python3.6
@@ -44,26 +44,26 @@ For the other operating systems, visit [this guide](https://realpython.com/insta
 
 Now install PIP, the package manager:
 
-```
+```bash
 sudo apt-get install python3-pip
 ```
 
 Follow this by the installation of Virtualenvwrapper, which is a virtual environment manager:
 
-```
+```bash
 sudo pip3 install virtualenvwrapper
 ```
 
 Create a folder for your virtualenvs (I use ~/dev/PYTHON_ENVS) and set it as WORKON_HOME:
 
-```
+```bash
 mkdir  ~/dev/PYTHON_ENVS
 export WORKON_HOME=~/dev/PYTHON_ENVS
 ```
 
 In order to source the environment details when the user login, add the following lines to ~/.bashrc:
 
-```
+```bash
 source "/usr/local/bin/virtualenvwrapper.sh"
 export WORKON_HOME="~/dev/PYTHON_ENVS"
 ```
@@ -71,7 +71,7 @@ export WORKON_HOME="~/dev/PYTHON_ENVS"
 Make sure to adapt the WORKON_HOME to your real WORKON_HOME.
 Now we need to create then activate the new environment:
 
-```
+```bash
 mkvirtualenv --python=/usr/bin/python3 trendinggitrepositories
 workon trendinggitrepositories
 ```
@@ -130,20 +130,20 @@ Now run it using: `python app.py` and you will see a similar output to the follo
 
 We now need to install PyGithub since we need it to communicate with Github API v3.
 
-```
+```bash
 pip install PyGithub
 ```
 
 Go to Github and [create a new app](https://github.com/settings/applications/new). We will need the application "Client ID" and "Client Secret":
 
-```
+```python
 from github import Github
 g = Github("xxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 ```
 
 This is how the mini API looks like:
 
-```
+```python
 from flask import Flask, jsonify, abort
 import urllib.request, json
 from flask import request
@@ -178,7 +178,7 @@ if __name__ == '__main__':
 
 Let's hide the Github token and secret as well as other variables in the environment.
 
-```
+```python
 from flask import Flask, jsonify, abort, request
 import urllib.request, json, os
 from github import Github
@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
 The code above will return the top "n" repositories using Python as a programming language. We can use other languages too:
 
-```
+```python
 from flask import Flask, jsonify, abort, request
 import urllib.request, json, os
 from github import Github
@@ -308,7 +308,7 @@ sed
 The list is long, but our mini API is working fine.
 Now, let's freeze the dependencies:
 
-```
+```bash
 pip freeze > requirements.txt
 ```
 
@@ -329,13 +329,13 @@ CMD [ "python", "app.py" ]
 
 Now you can build it:
 
-```
+```bash
 docker build --no-cache -t tgr .
 ```
 
 Then run it:
 
-```
+```bash
 docker rm -f tgr
 docker run --it  --name tgr -p 5000:5000 -e CLIENT_ID="xxxxxxx" -e CLIENT_SECRET="xxxxxxxxxxxxxxx" -e DEBUG="True" tgr
 ```
@@ -343,7 +343,7 @@ docker run --it  --name tgr -p 5000:5000 -e CLIENT_ID="xxxxxxx" -e CLIENT_SECRET
 
 Let's include some other variables as environment variables:
 
-```
+```python
 from flask import Flask, jsonify, abort, request
 import urllib.request, json, os
 from github import Github
@@ -417,7 +417,7 @@ CMD ["python","./app.py"]
 
 Now if we want to run the container, we need to add many environment variables to the docker run command. An easier solution is using `--env-file    ` with Docker run:
 
-```
+```bash
 docker run -it --env-file .env my_container
 ```
 
@@ -434,7 +434,7 @@ PORT=5000
 
 After this modification, rebuild the image `docker build -t tgr .` and run it using:
 
-```
+```bash
 docker rm -f tgr;
 docker run -it  --name tgr -p 5000:5000 --env-file .env  tgr
 ```
@@ -477,7 +477,7 @@ threads = 2 * multiprocessing.cpu_count()
 
 This is why we are going to create another Python configuration file (`config.py`):
 
-```
+```python
 import multiprocessing
 workers = multiprocessing.cpu_count() * 2 + 1
 threads = 2 * multiprocessing.cpu_count()
@@ -485,14 +485,14 @@ threads = 2 * multiprocessing.cpu_count()
 
 In the same file, we are going to include other configurations of Gunicorn:
 
-```
+```python
 from os import environ as env
 bind = env.get("HOST","0.0.0.0") +":"+ env.get("PORT", 5000)
 ```
 
 This is the final `config.py` file:
 
-```
+```python
 import multiprocessing
 workers = multiprocessing.cpu_count() * 2 + 1
 threads = 2 * multiprocessing.cpu_count()
@@ -529,7 +529,7 @@ There are plenty of containers registries:
 
 You can also host your private container registry that supports OAuth, LDAP and Active Directory authentication using the registry provided by Docker:
 
-```
+```bash
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
@@ -539,7 +539,7 @@ We are going to use Dockerhub; this is why you need to create an account on [hub
 
 Now, using Docker CLI, login:
 
-```
+```bash
 docker login
 ```
 
@@ -551,13 +551,13 @@ Now rebuild the image using the new tag:
 
 Example:
 
-```
+```bash
 docker build -t eon01/tgr:1 .
 ```
 
 Finally, push the image:
 
-```
+```bash
 docker push eon01/tgr:1
 ```
 
@@ -593,13 +593,13 @@ A good solution is to tell Docker to ignore these files during the build using a
 
 At this stage, you should remove any image that you pushed to a distant registry, reset the Github tokens, build the new image without any cache:
 
-```
+```bash
 docker build -t eon01/tgr:1 . --no-cache
 ```
 
 Push it again:
 
-```
+```bash
 docker push eon01/tgr:1
 ```
 
@@ -613,13 +613,13 @@ Before you begin the installation, you need to make sure that your laptop suppor
 
 If your using Linux, run the following command and make sure that the output is not empty:
 
-```
+```bash
 grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 
 Mac users should execute:
 
-```
+```bash
 sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 
@@ -650,14 +650,14 @@ Now, install Minikube.
 
 Linux systems:
 
-```
+```bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
 sudo install minikube /usr/local/bin
 ```
 
 MacOs:
 
-```
+```bash
 brew cask install minikube
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube
 sudo mv minikube /usr/local/bin
@@ -667,7 +667,7 @@ Windows:
 
 Use Chocolatey as an administrator:
 
-```
+```bash
 choco install minikube
 ```
 
@@ -706,25 +706,25 @@ You can also add different addons like:
 
 If you run `minikube start` a cluster called minikube will be created; however, you have other choices rather than just creating a regular Minikube cluster. In this example, we are going to create a cluster called "workshop", enable a UI to browse the API and activate tailing logs:
 
-```
+```bash
 minikube start -p workshop --extra-config=apiserver.enable-swagger-ui=true --alsologtostderr
 ```
 
 You have plenty of other options to start a Minikube cluster; you can, for instance, choose the Kubernetes version and the VM driver:
 
-```
+```bash
 minikube start --kubernetes-version="v1.12.0" --vm-driver="virtualbox"  
 ```
 
 Start the new cluster:
 
-```
+```bash
 minikube start -p workshop --extra-config=apiserver.enable-swagger-ui=true --alsologtostderr
 ```
 
 You can get detailed information about the cluster using:
 
-```
+```bash
 kubectl cluster-info
 ```
 
@@ -744,7 +744,7 @@ Even if Replica Sets replace it, it's still used in some codes.
 
 This is a typical example:
 
-```
+```yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -768,7 +768,7 @@ spec:
 
 We can also use Replica Sets, another way to deploy an app and replicate it:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
  kind: ReplicaSet
  metadata:
@@ -877,7 +877,7 @@ Newer Kubernetes resources such as Jobs, Deployments, ReplicaSets, and DaemonSet
 
 This is an example of how we use Kubectl with selectors :
 
-```
+```bash
 kubectl delete pods -l 'env in (production, staging, testing)'
 ```
 
@@ -889,7 +889,7 @@ It is rather unlikely that we will ever need to create Pods directly for a produ
 
 This is a simple Pod definition:
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -910,7 +910,7 @@ In practice, we need:
 
 This is a Deployment object that creates three replicas of the container app running the image "reg/app:v1". These containers can be reached using port 80:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -931,7 +931,7 @@ spec:
 
 This is the Deployment file we will use (save it to `kubernetes/api-deployment.yaml`:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -980,7 +980,7 @@ In Kubernetes version 1.9, `apps/v1` is introduced, and `extensions/v1beta1`, `a
 
 To make things simpler, to know which version of the API you need to use, use the command:
 
-```
+```bash
 kubectl api-versions
 ```
 
@@ -1009,7 +1009,7 @@ This above command will give you the API versions compatible with your cluster.
 
 Let's deploy the pod now using the Deployment file we created.
 
-```
+```bash
 kubcetl apply -f kubernetes/api-deployment.yaml
 ```
 
@@ -1027,7 +1027,7 @@ In the Deployment configuration, we also defined our container. We will run a si
 
 Also, we can add many other configurations, like the requested memory and its limit. The goal here is not using all that Kubernetes allows is to use in a Deployment file, but to see some of the essential features.
 
-```
+```yaml
     spec:
       containers:
         - name: tgr
@@ -1068,13 +1068,13 @@ In some cases, the Docker registry can be private, and in this case, pulling the
 
 This is how the `registry-credentials` secret is created:
 
-```
+```bash
 kubectl create secret docker-registry registry-credentials --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 ```
 
 You can also apply/create the `registry-credentials` using a YAML file. This is an example:
 
-```
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -1088,13 +1088,13 @@ type: kubernetes.io/dockerconfigjson
 
 If you decode the .dockerconfigjson file using `base64 --decode` command, you will understand that it's a simple file storing the configuration to access a registry:
 
-```
+```bash
 kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 
 You will get a similar output to the following one:
 
-```
+```json
 {"auths":{"your.private.registry.domain.com":{"username":"eon01","password":"xxxxxxxxxxx","email":"aymen@eralabs.io","auth":"dE3xxxxxxxxx"}}}
 ```
 
@@ -1102,7 +1102,7 @@ Again, let's decode the "auth" value using `echo "dE3xxxxxxxxx"|base64 --decode 
 
 Now let's see if the deployment is done, let's see how many pods we have:
 
-```
+```bash
 kubectl get pods
 ```
 
@@ -1110,13 +1110,13 @@ This command will show all the pods within a cluster.
 
 We can scale our deployment using a command similar to the following one:
 
-```
+```bash
 kubectl scale --replicas=<expected_replica_num> deployment <deployment_name>
 ```
 
 Our deployment is called `tgr` since it's the name we gave to it in the Deployment configuration. You can also make verification by typing `kubeclt get deployment`. Let's scale it:
 
-```
+```bash
 kubectl scale --replicas=2 deployment tgr
 ```
 
@@ -1130,7 +1130,7 @@ In all cases, pods are not meant to receive traffic directly, but they need to b
 
 At the moment, the only service running is the cluster IP (which is related to Minikube and give us access to the cluster we created):
 
-```
+```bash
 kubectl get services
 ```
 
@@ -1149,7 +1149,7 @@ In our case, creating a load balancer is a suitable solution. This is the config
 
 This is how the Service looks like:
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -1202,7 +1202,7 @@ There are different types of Services that we can use to expose access to the AP
 
 We created a Load Balancer using a Service on our Minikube cluster, but since we don't have a Load Balancer to run, we can access the API service using the Cluster IP followed by the Service internal Port:
 
-```
+```bash
 minikube -p workshop ip
 ```
 
@@ -1226,7 +1226,7 @@ Use the IP `192.168.99.199` followed by the port `30546` to access the API.
 
 You can test this using a `curl` command:
 
-```
+```bash
 curl "http://192.168.99.100:30546/?l=python&n=1"
 
 ---
@@ -1266,13 +1266,13 @@ As it's described in [Envoy official website](https://www.envoyproxy.io/):
 
  We are going to use Ambassador as an API Gateway; we no longer need the load balancer service we created in the first part. Let's remove it:
 
-```
+```bash
 kubectl delete -f kubernetes/api-service.yaml
 ```
 
 To deploy Ambassador in your **default** namespace, first, you need to check if Kubernetes has RBAC enabled:
 
-```
+```bash
 kubectl cluster-info dump --namespace kube-system | grep authorization-mode
 ```
 
@@ -1308,7 +1308,7 @@ spec:
 
 Deploy the service:
 
-```
+```bash
 kubectl apply -f ambassador-service.yaml
 ```
 
@@ -1375,13 +1375,13 @@ spec:
 
 Deploy the previously created configuration:
 
-```
+```bash
 kubectl apply -f kubernetes/api-deployment-with-ambassador.yaml
 ```
 
 Let's test things out: We need the external IP for Ambassador:
 
-```
+```bash
 kubectl get svc -o wide ambassador
 ```
 
@@ -1411,7 +1411,7 @@ We can use `minikube -p workshop  service list` to get the Ambassador IP. You wi
 
 Now you can use the API using the IP ` http://192.168.99.100:30283`:
 
-```
+```bash
 curl "http://192.168.99.100:30283/?l=python&n=1"
 ---
 {"repos":[{"archive_url":"https://api.github.com/repos/vinta/awesome-python/{archive_format}{/ref}","archived":false,"assignees_url":"https://api.github.com/repos/vinta/awesome-python/assignees{/user}","blobs_url":"https://api.github.com/repos/vinta/awesome-python/git/blobs{/sha}","branches_url":"https://api.github.com/repos/vinta/awesome-python/branches{/branch}","clone_url":"https://github.com/vinta/awesome-python.git","collaborators_url":"https://api.github.com/repos/vinta/awesome-python/collaborators{/collaborator}","comments_url":"https://api.github.com/repos/vinta/awesome-python/comments{/number}","commits_url":"https://api.github.com/repos/vinta/awesome-python/commits{/sha}","compare_url":"https://api.github.com/repos/vinta/awesome-python/compare/{base}...{head}","contents_url":"https://api.github.com/repos/vinta/awesome-python/contents/{+path}","contributors_url":"https://api.github.com/repos/vinta/awesome-python/contributors","created_at":"2014-06-27T21:00:06Z","default_branch":"master","deployments_url":"https://api.github.com/repos/vinta/awesome-python/deployments","description":"A curated list of awesome Python frameworks, libraries, software and resources","disabled":false,"downloads_url":"https://api.github.com/repos/vinta/awesome-python/downloads","events_url":"https://api.github.com/repos/vinta/awesome-python/events","fork":false,"forks":13933,"forks_count":13933,"forks_url":"https://api.github.com/repos/vinta/awesome-python/forks","full_name":"vinta/awesome-python","git_commits_url":"https://api.github.com/repos/vinta/awesome-python/git/commits{/sha}","git_refs_url":"https://api.github.com/repos/vinta/awesome-python/git/refs{/sha}","git_tags_url":"https://api.github.com/repos/vinta/awesome-python/git/tags{/sha}","git_url":"git://github.com/vinta/awesome-python.git","has_downloads":true,"has_issues":true,"has_pages":true,"has_projects":false,"has_wiki":false,"homepage":"https://awesome-python.com/","hooks_url":"https://api.github.com/repos/vinta/awesome-python/hooks","html_url":"https://github.com/vinta/awesome-python","id":21289110,"issue_comment_url":"https://api.github.com/repos/vinta/awesome-python/issues/comments{/number}","issue_events_url":"https://api.github.com/repos/vinta/awesome-python/issues/events{/number}","issues_url":"https://api.github.com/repos/vinta/awesome-python/issues{/number}","keys_url":"https://api.github.com/repos/vinta/awesome-python/keys{/key_id}","labels_url":"https://api.github.com/repos/vinta/awesome-python/labels{/name}","language":"Python","languages_url":"https://api.github.com/repos/vinta/awesome-python/languages","license":{"key":"other","name":"Other","node_id":"MDc6TGljZW5zZTA=","spdx_id":"NOASSERTION","url":null},"merges_url":"https://api.github.com/repos/vinta/awesome-python/merges","milestones_url":"https://api.github.com/repos/vinta/awesome-python/milestones{/number}","mirror_url":null,"name":"awesome-python","network_count":13933,"node_id":"MDEwOlJlcG9zaXRvcnkyMTI4OTExMA==","notifications_url":"https://api.github.com/repos/vinta/awesome-python/notifications{?since,all,participating}","open_issues":482,"open_issues_count":482,"owner":{"avatar_url":"https://avatars2.githubusercontent.com/u/652070?v=4","events_url":"https://api.github.com/users/vinta/events{/privacy}","followers_url":"https://api.github.com/users/vinta/followers","following_url":"https://api.github.com/users/vinta/following{/other_user}","gists_url":"https://api.github.com/users/vinta/gists{/gist_id}","gravatar_id":"","html_url":"https://github.com/vinta","id":652070,"login":"vinta","node_id":"MDQ6VXNlcjY1MjA3MA==","organizations_url":"https://api.github.com/users/vinta/orgs","received_events_url":"https://api.github.com/users/vinta/received_events","repos_url":"https://api.github.com/users/vinta/repos","site_admin":false,"starred_url":"https://api.github.com/users/vinta/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/vinta/subscriptions","type":"User","url":"https://api.github.com/users/vinta"},"private":false,"pulls_url":"https://api.github.com/repos/vinta/awesome-python/pulls{/number}","pushed_at":"2019-08-16T15:21:42Z","releases_url":"https://api.github.com/repos/vinta/awesome-python/releases{/id}","size":4994,"ssh_url":"git@github.com:vinta/awesome-python.git","stargazers_count":71269,"stargazers_url":"https://api.github.com/repos/vinta/awesome-python/stargazers","statuses_url":"https://api.github.com/repos/vinta/awesome-python/statuses/{sha}","subscribers_count":5254,"subscribers_url":"https://api.github.com/repos/vinta/awesome-python/subscribers","subscription_url":"https://api.github.com/repos/vinta/awesome-python/subscription","svn_url":"https://github.com/vinta/awesome-python","tags_url":"https://api.github.com/repos/vinta/awesome-python/tags","teams_url":"https://api.github.com/repos/vinta/awesome-python/teams","trees_url":"https://api.github.com/repos/vinta/awesome-python/git/trees{/sha}","updated_at":"2019-08-19T08:21:51Z","url":"https://api.github.com/repos/vinta/awesome-python","watchers":71269,"watchers_count":71269}],"status":"ok"}
@@ -1438,13 +1438,13 @@ If you remember, when we created our Minikube cluster we used `--extra-config=ap
 
 When using Minikube, in order to access the Kubernetes API using a browser, we need to create a proxy:
 
-```
+```bash
 kubectl proxy --port=8080 &
 ```
 
 Now we can test this out using Curl:
 
-```
+```bash
 curl http://localhost:8080/api/
 ---
 {
@@ -1469,11 +1469,11 @@ For instance, we can get a list of metrics here `http://localhost:8080/metrics`.
 
 We are going to use the Kubernetes client:
 
-```
+```bash
 pip install kubernetes
 ```
 
-```
+```python
 # import json
 # import requests
 # @app.route('/pods')
@@ -1503,7 +1503,7 @@ tgr-8d78d599f-pt5xx           1/1     Running   0          4m17s
 
 Now log inside the API Pod:
 
-```
+```bash
 kubectl exec -it tgr-8d78d599f-pt5xx bash
 ```
 
@@ -1517,7 +1517,7 @@ Notice that the token file is added automatically by Kubernetes.
 
 We also have other variables already set like:
 
-```
+```bash
 echo $KUBERNETES_SERVICE_HOST
 10.96.0.1
 
@@ -1530,13 +1530,13 @@ tgr-8d78d599f-pt5xx
 
 We are going to use these variables to access the list of Pods using this Curl command:
 
-```
+```bash
 curl -sSk -H "Authorization: Bearer $KUBE_TOKEN" https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/api/v1/namespaces/default/pods/$HOSTNAME
 ```
 
 At this stage, you should have an error output saying that you don't have the rights to access this API endpoint, which is normal:
 
-```
+```json
 {
   "kind": "Status",
   "apiVersion": "v1",
@@ -1558,7 +1558,7 @@ The Pod is using the default Service Account and it does not have the right to l
 
 In order to fix this, exit the container and create a file called `kubernetes/service-account.yaml`, add the following lines:
 
-```
+```yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -1587,7 +1587,7 @@ Then apply the new configuration using `kubectl apply -f kubernetes/service-acco
 
 Now you can access the list of Pods:
 
-```
+```json
 {
   "kind": "PodList",
   "apiVersion": "v1",
