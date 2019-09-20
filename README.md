@@ -1657,6 +1657,8 @@ This could be probably the subject of the upcoming workshop.
 - ![](https://avatars0.githubusercontent.com/u/5774128?s=20&v=4) [eon01](https://github.com/eon01) (creator)
 - ![](https://avatars0.githubusercontent.com/u/8949969?s=20&v=4) [MJGTwo](https://github.com/MJGTwo)
 - ![](https://avatars2.githubusercontent.com/u/15660327?s=20&v=4) [salhernandez](https://github.com/salhernandez)
+- ![](https://avatars2.githubusercontent.com/u/1473134?s=20&v=4) [landonwilkins](https://github.com/landonwilkins)
+- ![](https://avatars2.githubusercontent.com/u/6171095?s=20&v=4) [simon-barton](https://github.com/simon-barton)
 - You ? Fork and contribute :-)
 
 ---
