@@ -1010,7 +1010,7 @@ This above command will give you the API versions compatible with your cluster.
 Let's deploy the pod now using the Deployment file we created.
 
 ```bash
-kubcetl apply -f kubernetes/api-deployment.yaml
+kubectl apply -f kubernetes/api-deployment.yaml
 ```
 
 Note that you can use `kubectl create -f kubernetes/api-deployment.yaml` command. However, there's a difference, between `apply` and `create`.
@@ -1021,7 +1021,7 @@ Note that you can use `kubectl create -f kubernetes/api-deployment.yaml` command
 
 Using this approach, you tell the Kubernetes API what you want to create, replace, or delete, not how you want your K8s cluster world to look like.
 
-`kubectl apply` is what we call [Declarative Management of Kubernetes Objects Using Configuration Files](https://kubernetes.io/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/) approach. `kubectl apply` makes incremental changes. If an object already exists and you want to apply a new value for replica without deleting and recreating the object again, then `kubectl apply` is what you need. `kubcetl apply` can also be used even if the object (e.g deployment) does not exist yet.
+`kubectl apply` is what we call [Declarative Management of Kubernetes Objects Using Configuration Files](https://kubernetes.io/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/) approach. `kubectl apply` makes incremental changes. If an object already exists and you want to apply a new value for replica without deleting and recreating the object again, then `kubectl apply` is what you need. `kubectl apply` can also be used even if the object (e.g deployment) does not exist yet.
 
 In the Deployment configuration, we also defined our container. We will run a single container here since the replica is set to `1`. In the same time, our container will use the image `eon01/tgr:1`. Since our container will need some environment variables, the best way is to provide them using the Kubernetes deployment definition file.
 
