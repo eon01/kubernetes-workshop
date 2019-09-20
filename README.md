@@ -1248,8 +1248,7 @@ The best solution, in this case, is set up an Ingress controller that acts as a 
 
 ![](images/ingress.png)
 
-(photo credit:https://medium.com/google-cloud/)
-
+> Illustration by [Ahmet Alp Balkan](https://twitter.com/ahmetb) via [Medium](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0).
 
 
 # An API Gateway
