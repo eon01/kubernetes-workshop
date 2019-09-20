@@ -1186,19 +1186,21 @@ There are different types of Services that we can use to expose access to the AP
 
 ![](images/clusterip.png)
 
-(photo credit:https://medium.com/google-cloud/)
+> Illustration by [Ahmet Alp Balkan](https://twitter.com/ahmetb) via [Medium](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0).
 
 - [`NodePort`](https://kubernetes.io/docs/concepts/services-networking/#nodeport): Exposes the Service on each Node’s (VM's) IP at a static port called the `NodePort`.  (In our example, we have a single node). This is a primitive way to make an application accessible from outside the cluster and is not suitable for many use cases since your nodes (VMs) IP addresses may change at any time. The service is accessible using `<NodeIP>:<NodePort>`.
 
 ![](images/nodeport.png)
 
-(photo credit:https://medium.com/google-cloud/)
+> Illustration by [Ahmet Alp Balkan](https://twitter.com/ahmetb) via [Medium](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0).
+
+
 
 - [`LoadBalancer`](https://kubernetes.io/docs/concepts/services-networking/#loadbalancer): This is more advanced than a `NodePort` Service. Usually, a Load Balancer exposes a Service externally using a cloud provider’s load balancer. `NodePort` and `ClusterIP` Services, to which the external load balancer routes, are automatically created.
 
 ![](images/loadbalancer.png)
 
-(photo credit:https://medium.com/google-cloud/)
+> Illustration by [Ahmet Alp Balkan](https://twitter.com/ahmetb) via [Medium](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0).
 
 We created a Load Balancer using a Service on our Minikube cluster, but since we don't have a Load Balancer to run, we can access the API service using the Cluster IP followed by the Service internal Port:
 
