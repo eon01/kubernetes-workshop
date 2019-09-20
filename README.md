@@ -1114,7 +1114,7 @@ We can scale our deployment using a command similar to the following one:
 kubectl scale --replicas=<expected_replica_num> deployment <deployment_name>
 ```
 
-Our deployment is called `tgr` since it's the name we gave to it in the Deployment configuration. You can also make verification by typing `kubeclt get deployment`. Let's scale it:
+Our deployment is called `tgr` since it's the name we gave to it in the Deployment configuration. You can also make verification by typing `kubectl get deployment`. Let's scale it:
 
 ```bash
 kubectl scale --replicas=2 deployment tgr
