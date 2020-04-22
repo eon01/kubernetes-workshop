@@ -1532,7 +1532,7 @@ tgr-8d78d599f-pt5xx
 We are going to use these variables to access the list of Pods using this Curl command:
 
 ```bash
-curl -sSk -H "Authorization: Bearer $KUBE_TOKEN" https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/api/v1/namespaces/default/pods/$HOSTNAME
+curl -sSk -H "Authorization: Bearer $KUBE_TOKEN" https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT/api/v1/namespaces/default/pods
 ```
 
 At this stage, you should have an error output saying that you don't have the rights to access this API endpoint, which is normal:
