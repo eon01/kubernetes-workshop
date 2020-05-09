@@ -579,7 +579,7 @@ ADD . .
 
 The above commands will even copy the `.env` file containing our secrets.
 
-A good solution is to tell Docker to ignore these files during the build using a .dockeringore file:
+A good solution is to tell Docker to ignore these files during the build using a `.dockerignore` file:
 
 ```
 **.git
