@@ -990,7 +990,7 @@ This above command will give you the API versions compatible with your cluster.
 
 - **apps/v1** is the most popular API group in Kubernetes, and it includes functionality related to running applications on Kubernetes, like Deployments, RollingUpdates, and ReplicaSets.
 
-- **autoscaling/v1 **allows pods to be autoscaled based on different resource usage metrics.
+- **autoscaling/v1** allows pods to be autoscaled based on different resource usage metrics.
 
 - **batch/v1** is related to batch processing and and jobs
 
