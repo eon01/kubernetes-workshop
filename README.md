@@ -439,7 +439,7 @@ docker rm -f tgr;
 docker run -it  --name tgr -p 5000:5000 --env-file .env  tgr
 ```
 
-Our application runs using `python app.py` which is the webserver that ships with Flask and t's great for development and local execution of your program, however, it's not designed to run in a production mode, whether it's a monolithic app or a microservice.
+Our application runs using `python app.py` which is the webserver that ships with Flask and it's great for development and local execution of your program, however, it's not designed to run in a production mode, whether it's a monolithic app or a microservice.
 
 A production server typically receives abuse from spammers, script kiddies, and should be able to handle high traffic. In our case, a good solution is using a WSGI HTTP server like Gunicorn (or uWsgi).
 
