@@ -1238,7 +1238,7 @@ curl "http://192.168.99.100:30546/?l=python&n=1"
 
 
 
-## Inconvenient of Load Balancer Service
+## Inconvenience of Load Balancer Service
 
 Typically, load balancers are provisioned by the Cloud provider you're using.
 
