@@ -1096,7 +1096,7 @@ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base
 You will get a similar output to the following one:
 
 ```json
-{"auths":{"your.private.registry.domain.com":{"username":"eon01","password":"xxxxxxxxxxx","email":"aymen@eralabs.io","auth":"dE3xxxxxxxxx"}}}
+{"auths":{"your.private.registry.domain.com":{"username":"eon01","password":"xxxxxxxxxxx","email":"aymen@email.com","auth":"dE3xxxxxxxxx"}}}
 ```
 
 Again, let's decode the "auth" value using `echo "dE3xxxxxxxxx"|base64 --decode ` and it will give you something like `eon01:xxxxxxxx` which has the format `username:password`.
