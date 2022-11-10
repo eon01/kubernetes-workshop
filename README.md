@@ -3,7 +3,7 @@
 - Slides available [here](https://slides.com/eon01/kubernetes-workshop#/).
 - Original article posted [here](https://medium.com/faun/a-gentle-introduction-to-kubernetes-4961e443ba26).
 - Source code [here](https://github.com/eon01/kubernetes-workshop).
-- Inspired from my course: [Learn Kubernetes by building 10 projects](https://bf.eralabs.io/?ref=k8sworkshopgithub)
+- Inspired from my course: [Learn Kubernetes by building 10 projects](https://learn.faun.dev)
 
 # Introduction
 
