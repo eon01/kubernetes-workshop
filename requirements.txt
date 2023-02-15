@@ -12,5 +12,5 @@ PyGithub==1.43.8
 PyJWT==1.7.1
 requests==2.22.0
 urllib3==1.25.3
-Werkzeug==0.15.5
+Werkzeug==2.2.3
 wrapt==1.11.2
